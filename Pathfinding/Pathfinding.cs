@@ -6,7 +6,7 @@ public class Pathfinding : MonoBehaviour
 {
     public string pathfindingManagerTag = "PathfindingManager";
 
-    Grid grid;
+    PathfindingGrid grid;
     //public Transform StartPosition;
     //public Transform EndPosition;
 
@@ -14,9 +14,9 @@ public class Pathfinding : MonoBehaviour
 
     //private float currentTime = 0;
 
-    private void Awake()
+    private void Start()
     {
-        grid = GameObject.FindGameObjectWithTag(pathfindingManagerTag).GetComponent<Grid>();
+        grid = GameObject.FindGameObjectWithTag(pathfindingManagerTag).GetComponent<PathfindingGrid>();
     }
     //private void Update()
     //{
@@ -30,6 +30,9 @@ public class Pathfinding : MonoBehaviour
     //}
     public Vector2 GetVelocityToNextNode(Vector2 currentPos)
     {
+        if (grid == null) return Vector2.zero;
+        if (grid.FinalPath == null) return Vector2.zero;
+
         if (grid.FinalPath.Count > 0)
         {
             Vector2 nextNodePosition = grid.FinalPath[0].Position;
